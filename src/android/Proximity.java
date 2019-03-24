@@ -18,6 +18,9 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
     public static int RUNNING = 2;
     public static int ERROR_FAILED_TO_START = 3;
 
+    public static int NEAR = 1;
+    public static int FAR = 0;
+
     // sensor result
 
     public long TIMEOUT = 30000;        // Timeout in msec to shut off listener
@@ -26,7 +29,7 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
     long timeStamp;                     // time of most recent value
     long lastAccessTime;                // time the value was last retrieved
 
-    JSONArray value;
+    int value;
 
     private SensorManager sensorManager;// Sensor manager
     Sensor mSensor;                     // Compass sensor returned by sensor manager
@@ -37,7 +40,7 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
      * Constructor.
      */
     public Proximity() {
-        this.value = new JSONArray();
+        this.value = Proximity.FAR;
         this.timeStamp = 0;
         this.setStatus(Proximity.STOPPED);
     }
@@ -154,7 +157,7 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
             this.sensorManager.unregisterListener(this);
         }
         this.setStatus(Proximity.STOPPED);
-        this.value = new JSONArray();
+        this.value = Proximity.FAR;
     }
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -179,22 +182,19 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
      * @param SensorEvent event
      */
     public void onSensorChanged(SensorEvent event) {
-        try {
-            JSONArray value = new JSONArray();
-            for(int i=0;i<event.values.length;i++){
-                value.put(Float.parseFloat(event.values[i]+""));
-            }
+        if (event.values[0] == 0) {
+            this.value = Proximity.NEAR;
+        } else {
+            this.value = Proximity.FAR;
+        }
 
-            this.timeStamp = System.currentTimeMillis();
-            this.value = value;
-            this.setStatus(Proximity.RUNNING);
+        // Save proximity
+        this.timeStamp = System.currentTimeMillis();
+        this.setStatus(Proximity.RUNNING);
 
-            // If proximity hasn't been read for TIMEOUT time, then turn off sensor to save power
-            if ((this.timeStamp - this.lastAccessTime) > this.TIMEOUT) {
-                this.stop();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        // If proximity hasn't been read for TIMEOUT time, then turn off sensor to save power
+        if ((this.timeStamp - this.lastAccessTime) > this.TIMEOUT) {
+            this.stop();
         }
     }
 
@@ -212,7 +212,7 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
      *
      * @return          distance
      */
-    public JSONArray getValue() {
+    public int getValue() {
         this.lastAccessTime = System.currentTimeMillis();
         return this.value;
     }
