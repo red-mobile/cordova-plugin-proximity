@@ -36,7 +36,7 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
     /**
      * Constructor.
      */
-    public Promixity() {
+    public Proximity() {
         this.value = new JSONArray();
         this.timeStamp = 0;
         this.setStatus(Proximity.STOPPED);
