@@ -216,7 +216,7 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
     public JSONObject getValue() {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("proximity", this.value);
+            obj.put("distance", this.value);
             obj.put("timestamp", this.timeStamp);
             this.lastAccessTime = System.currentTimeMillis();
         } catch (JSONException e) {
