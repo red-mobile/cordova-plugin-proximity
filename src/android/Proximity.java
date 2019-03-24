@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import java.util.ArrayList;
+import org.json.JSONObject;
 
 public class Proximity extends CordovaPlugin implements SensorEventListener {
 
@@ -212,9 +213,16 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
      *
      * @return          distance
      */
-    public int getValue() {
-        this.lastAccessTime = System.currentTimeMillis();
-        return this.value;
+    public JSONObject getValue() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("proximity", this.value);
+            obj.put("timestamp", this.timeStamp);
+            this.lastAccessTime = System.currentTimeMillis();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
 
