@@ -1,5 +1,5 @@
 {
-  "name": "@red-mobile/cordova-plugin-proximity",
+  "name": "cordova-plugin-proximity",
   "version": "0.0.1",
   "description": "This plugin provides access to the device's (IR) proximity sensor.",
   "cordova": {
