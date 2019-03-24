@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="cordova-plugin-proximity"
+        version="0.0.1">
+  <name>Sensors</name>
+  <engines>
+    <engine name="cordova" version=">=7.1.0"/>
+  </engines>
+  <asset src="www/proximity.js" target="js/proximity.js"/>
+  <js-module src="www/proximity.js" name="proximity">
+    <clobbers target="proximity" />
+  </js-module>
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Sensors">
+        <param name="android-package" value="com.okhiroyuki.plugin.Proximity"/>
+      </feature>
+    </config-file>
+    <source-file src="src/android/Proximity.java" target-dir="src/com/okhiroyuki/plugin/"/>
+  </platform>
+</plugin>
