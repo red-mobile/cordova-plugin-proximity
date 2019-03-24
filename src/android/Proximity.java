@@ -143,7 +143,6 @@ public class Proximity extends CordovaPlugin implements SensorEventListener {
         this.sensorManager.registerListener(this, this.mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         this.lastAccessTime = System.currentTimeMillis();
         this.setStatus(Proximity.STARTING);
-        this.setStatus(Proximity.ERROR_FAILED_TO_START);
         return this.status;
     }
 
