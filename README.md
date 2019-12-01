@@ -7,7 +7,7 @@ At this moment this plugin is implemented only for Android!
 ## Installation
 
 ```
-cordova plugin add cordova-plugin-proximity
+cordova plugin add https://github.com/red-mobile/cordova-plugin-proximity.git
 ```
 
 ## Methods
