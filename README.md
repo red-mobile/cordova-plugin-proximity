@@ -1,96 +1,44 @@
-# Cordova Sensors Plugin
+# cordova-plugin-proximity
 
-The sensors are capable of providing raw data with high precision and accuracy, and are useful if you want to monitor three-dimensional device movement or positioning, or you want to monitor changes in the ambient environment near a device. For example, a game might track readings from a device's gravity sensor to infer complex user gestures and motions, such as tilt, shake, rotation, or swing. Likewise, a weather application might use a device's temperature sensor and humidity sensor to calculate and report the dewpoint, or a travel application might use the geomagnetic field sensor and accelerometer to report a compass bearing.
+This plugin provides access to the device's (IR) proximity sensor.
 
 At this moment this plugin is implemented only for Android!
 
-## Demos
+## Installation
 
-See in https://github.com/fabiorogeriosj/cordova-plugin-sensors-demo
-
-## Install
-
-    $ cordova plugin add https://github.com/fabiorogeriosj/cordova-plugin-sensors.git
-
-## Methods    
-
-#### sensors.enableSensor("TYPE_SENSOR")
-
-Enable sensor.
-
-#### sensors.disableSensor()
-
-Disable sensor.
-
-#### sensors.getState(successCallback, errorCallback)
-
-Get values sensor.
-
-## Using in Ionic
-
-```js
-  APP.controller("indexController", function ($scope, $interval){
-
-      function onSuccess(values) {
-          $scope.state = values[0];
-      };
-      
-      function onError(error) {
-          throw error;
-      };
-
-      document.addEventListener("deviceready", function () {
-        
-        sensors.enableSensor("PROXIMITY");
-
-        $interval(function(){
-          sensors.getState(onSuccess, onError);
-        }, 100);
-
-
-      }, false);
-
-  });
+```
+cordova plugin add cordova-plugin-proximity
 ```
 
-## Type sensors
+## Methods
 
-**PROXIMITY** - Measures the proximity of an object in cm relative to the view screen of a device.
+- proximity.enableSensor
+- proximity.disableSensor
+- proximity.getState
 
-**ACCELEROMETER** - Measures the acceleration force in m/s2 that is applied to a device on all three physical axes (x, y, and z), including the force of gravity.
+### proximity.getState
 
-**GRAVITY** - Measures the force of gravity in m/s2 that is applied to a device on all three physical axes (x, y, z).
+Gets state from the proximity sensor.
 
-**GYROSCOPE** - Measures a device's rate of rotation in rad/s around each of the three physical axes (x, y, and z).
+```js
+    function onSuccess(results) {
+      console.log(results.distance);
+      console.log(results.timestamp);
+    };
 
-**GYROSCOPE_UNCALIBRATED** - Rate of rotation (without drift compensation) around the x axis.
+    function onError(error) {
+      console.log(error);
+    };
 
-**LINEAR_ACCELERATION** - Measures the acceleration force in m/s2 that is applied to a device on all three physical axes (x, y, and z), excluding the force of gravity.
+    proximity.enableSensor();
+    proximity.getState(onSuccess, onError);
+```
 
-**ROTATION_VECTOR** - Measures the orientation of a device by providing the three elements of the device's rotation vector.
+`results` object properties:
 
-**STEP_COUNTER** - Number of steps taken by the user since the last reboot while the sensor was activated.
+- `distance`: Distance to the object acquired by the proximity sensor. (far is 0, near is 1)
+- `timestamp`: The time at which this heading was determined. (milliseconds)
 
-**GAME_ROTATION_VECTOR** - Rotation vector component along the x axis (x * sin(θ/2)).
+## Supported Platforms
 
-**GEOMAGNETIC_ROTATION_VECTOR** - Rotation vector component along the x axis (x * sin(θ/2)).
-
-**MAGNETIC_FIELD** - Measures the ambient geomagnetic field for all three physical axes (x, y, z) in μT.
-
-**MAGNETIC_FIELD_UNCALIBRATED** - Geomagnetic field strength (without hard iron calibration) along the x axis.
-
-**ORIENTATION** - Measures degrees of rotation that a device makes around all three physical axes (x, y, z).
-
-**AMBIENT_TEMPERATURE** - Measures the ambient room temperature in degrees Celsius (°C). See note below.
-
-**LIGHT** - Measures the ambient light level (illumination) in lx.
-
-**PRESSURE** - Measures the ambient air pressure in hPa or mbar.
-
-**RELATIVE_HUMIDITY** - Measures the relative ambient humidity in percent (%).
-
-**TEMPERATURE** - Measures the temperature of the device in degrees Celsius (°C). 
-
-
-
-For more information about sensors **Android** see [Android Sensors Overview](http://developer.android.com/guide/topics/sensors/sensors_overview.html)
+- Android
