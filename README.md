@@ -23,6 +23,6 @@ npm unintall @red-mobile/cordva-plugin-proximity
 
 ## Methods
 
-- proximity.getCurrentProximity
-- proximity.watchProximity
-- proximity.clearWatch
+- navigator.proximity.getCurrentProximity
+- navigator.proximity.watchProximity
+- navigator.proximity.clearWatch
