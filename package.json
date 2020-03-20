@@ -1,23 +1,37 @@
 {
-  "name": "cordova-plugin-proximity",
+  "name": "@red-mobile/cordova-plugin-proximity",
   "version": "0.0.1",
   "description": "This plugin provides access to the device's (IR) proximity sensor.",
   "cordova": {
-    "id": "com.okhiroyuki.proximity",
-    "platforms": ["android"]
+    "id": "@red-mobile/com.okhiroyuki.proximity",
+    "platforms": [
+      "android"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/red-mobile/cordova-plugin-proximity.git"
+    "url": "git+https://github.com/okhiroyuki/cordova-plugin-proximity.git"
   },
-  "keywords": ["ecosystem:cordova", "cordova-android", "sensor", "proximity"],
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "sensor",
+    "proximity"
+  ],
+  "scripts": {
+    "test": "npm run jshint",
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src"
+  },
   "engines": {
     "cordova": ">=7.1.0"
   },
   "author": "Hiroyuki Okada",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/red-mobile/cordova-plugin-proximity/issues"
+    "url": "https://github.com/okhiroyuki/cordova-plugin-proximity/issues"
   },
-  "homepage": "https://github.com/red-mobile/cordova-plugin-proximity#readme"
+  "homepage": "https://github.com/okhiroyuki/cordova-plugin-proximity#readme",
+  "devDependencies": {
+    "jshint": "^2.11.0"
+  }
 }

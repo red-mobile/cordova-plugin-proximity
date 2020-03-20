@@ -7,38 +7,22 @@ At this moment this plugin is implemented only for Android!
 ## Installation
 
 ```
-cordova plugin add https://github.com/red-mobile/cordova-plugin-proximity.git
+cordova plugin add @red-mobile/cordva-plugin-proximity
 ```
 
-## Methods
+### uninstall
 
-- proximity.enableSensor
-- proximity.disableSensor
-- proximity.getState
-
-### proximity.getState
-
-Gets state from the proximity sensor.
-
-```js
-    function onSuccess(results) {
-      console.log(results.distance);
-      console.log(results.timestamp);
-    };
-
-    function onError(error) {
-      console.log(error);
-    };
-
-    proximity.enableSensor();
-    proximity.getState(onSuccess, onError);
 ```
-
-`results` object properties:
-
-- `distance`: Distance to the object acquired by the proximity sensor. (far is 0, near is 1)
-- `timestamp`: The time at which this heading was determined. (milliseconds)
+cordova plugin remove cordva-plugin-proximity
+npm unintall @red-mobile/cordva-plugin-proximity
+```
 
 ## Supported Platforms
 
 - Android
+
+## Methods
+
+- proximity.getCurrentProximity
+- proximity.watchProximity
+- proximity.clearWatch

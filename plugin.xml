@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="cordova-plugin-proximity"
-        version="0.0.1">
-  <name>Proximity</name>
-  <engines>
-    <engine name="cordova" version=">=7.1.0"/>
-  </engines>
-  <asset src="www/proximity.js" target="js/proximity.js"/>
-  <js-module src="www/proximity.js" name="proximity">
-    <clobbers target="proximity" />
-  </js-module>
-  <platform name="android">
-    <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="Proximity">
-        <param name="android-package" value="com.okhiroyuki.plugin.Proximity"/>
-      </feature>
-    </config-file>
-    <source-file src="src/android/Proximity.java" target-dir="src/com/okhiroyuki/plugin/"/>
-  </platform>
+    id="cordova-plugin-proximity"
+    version="0.0.1">
+  
+    <name>Proximity</name>
+    <description>This plugin provides access to the device's (IR) proximity sensor.</description>
+    <license>MIT</license>
+    <keywords>cordova,proximity</keywords>
+    <repo>https://github.com/okhiroyuki/cordova-plugin-proximity</repo>
+    <author>Hiroyuki Okada</author>
+    <engines>
+      <engine name="cordova" version=">=7.1.0"/>
+    </engines>
+
+    <js-module src="www/ProximitySensor.js" name="ProximitySensor">
+        <clobbers target="ProximitySensor" />
+    </js-module>
+
+    <js-module src="www/proximity.js" name="proximity">
+        <clobbers target="navigator.proximity" />
+    </js-module>
+
+	  <!-- andorid -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Proximity">
+                <param name="android-package" value="org.apache.cordova.proximity.SensorListener"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/SensorListener.java" target-dir="src/org/apache/cordova/proximity" />
+	</platform>
 </plugin>
