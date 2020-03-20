@@ -61,8 +61,8 @@ var proximitysensor = {
      * @param {Function} errorCallback      The function to call when there is an error getting the acceleration data. (OPTIONAL)
      * @param {Options} options The options for getting the accelerometer data such as timeout. (OPTIONAL)
      */
-    getCurrentproximity: function (successCallback, errorCallback, options) {
-        argscheck.checkArgs('fFO', 'proximitysensor.getCurrentproximity', arguments);
+    getCurrentProximity: function (successCallback, errorCallback, options) {
+        argscheck.checkArgs('fFO', 'proximitysensor.getCurrentProximity', arguments);
 
         if (cordova.platformId !== "android") {
             return;
@@ -96,8 +96,8 @@ var proximitysensor = {
      * @param {Options} options The options for getting the proximity data such as timeout. (OPTIONAL)
      * @return String                       The watch id that must be passed to #clearWatch to stop watching.
      */
-    watchproximity: function (successCallback, errorCallback, options) {
-		argscheck.checkArgs('fFO', 'proximitysensor.watchproximity', arguments);
+    watchProximity: function (successCallback, errorCallback, options) {
+		argscheck.checkArgs('fFO', 'proximitysensor.watchProximity', arguments);
 		
         // Default interval (10 sec)
         var frequency = (options && options.frequency && typeof options.frequency == 'number') ? options.frequency : 10000;
