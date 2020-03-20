@@ -43,9 +43,9 @@ public class SensorListener extends CordovaPlugin implements SensorEventListener
      * Constructor.
      */
     public SensorListener() {
-        this.distance = Proximity.FAR;
-        this.timeStamp = 0;
-        this.setStatus(Proximity.STOPPED);
+        this.distance = SensorListener.FAR;
+        this.timestamp = 0;
+        this.setStatus(SensorListener.STOPPED);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SensorListener extends CordovaPlugin implements SensorEventListener
      */
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        this.sensorManager = (SensorManager) cordova.getActivity().getSystemService(Context.SENSOR_SERVICE);
+        this.mSensorManager = (SensorManager) cordova.getActivity().getSystemService(Context.SENSOR_SERVICE);
     }
 
     /**
@@ -70,34 +70,23 @@ public class SensorListener extends CordovaPlugin implements SensorEventListener
      * @throws JSONException
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-
-        if (action.equals("start")) {
-            if((this.status == SensorListener.RUNNING) || (this.status == SensorListener.STARTING)){
-                startTimeout();
-                return this.status;
-            }
-        }
-        this.setStatus(SensorListener.STARTING);
-
-        // if sensor found, register as listner
-		if ((list != null) && (list.size() > 0)){
-			this.mSensor = list.get(0);
-			if(this.mSensorManager.registerListener(this, this.mSensor, SensorManager.SENSOR_DELAY_UI)){
-				this.setStatus(SensorListener.STARTING);
-				this.accuracy = SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM;
-			}else{
-				this.setStatus(SensorListener.ERROR_FAILED_TO_START);
-				this.fail(SensorListener.ERROR_FAILED_TO_START, "Device sensor returned an error.");
-				return this.status;
-			};
+		if (action.equals("start")){
+			this.callbackContext = callbackContext;
+			if (this.status != SensorListener.RUNNING){
+				this.start();
+			}
+		} else if (action.equals("stop")){
+			if (this.status == SensorListener.RUNNING){
+				this.stop();
+			}
+		}else{
+			return false;
 		}
-		else{
-			this.setStatus(SensorListener.ERROR_FAILED_TO_START);
-			this.fail(SensorListener.ERROR_FAILED_TO_START, "Device sensor returned an error.");
-			return this.status;
-		}
-		startTimeout();
-		return this.status;
+		
+		PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT, "");
+        result.setKeepCallback(true);
+        callbackContext.sendPluginResult(result);
+		return true;
     }
     
     private void startTimeout(){
@@ -146,7 +135,7 @@ public class SensorListener extends CordovaPlugin implements SensorEventListener
      */
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// Only look at gyroscope events
-        if (sensor.getType() != Sensor.TYPE_PROXIMITY) {
+        if (sensor.getType() != TYPE_PROXIMITY) {
             return;
         }
 
@@ -175,8 +164,11 @@ public class SensorListener extends CordovaPlugin implements SensorEventListener
 
 		if (this.accuracy >= SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM){
 			this.timestamp = System.currentTimeMillis();
-			this.intensity = event.values[0];
-			
+            if (event.values[0] == 0) {
+                this.distance = Proximity.NEAR;
+            } else {
+                this.distance = Proximity.FAR;
+            }			
 			this.win();
 		}
 	}
