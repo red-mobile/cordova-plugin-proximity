@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     id="cordova-plugin-proximity"
-    version="1.2.3">
+    version="1.2.4">
   
     <name>Proximity</name>
     <description>This plugin provides access to the device's (IR) proximity sensor.</description>
