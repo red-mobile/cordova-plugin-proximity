@@ -89,7 +89,7 @@ public class SensorListener extends CordovaPlugin implements SensorEventListener
 		return true;
     }
 
-    	/**
+    /**
 	 * Start listening for ambient light sensor.
 	 * @return status of listener
 	 */
