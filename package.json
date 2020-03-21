@@ -3,7 +3,7 @@
   "version": "1.2.3",
   "description": "This plugin provides access to the device's (IR) proximity sensor.",
   "cordova": {
-    "id": "@red-mobile/com.okhiroyuki.proximity",
+    "id": "@red-mobile/cordova-plugin-proximity",
     "platforms": [
       "android"
     ]
