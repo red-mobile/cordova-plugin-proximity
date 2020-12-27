@@ -13,8 +13,7 @@ cordova plugin add @red-mobile/cordva-plugin-proximity
 ### uninstall
 
 ```
-cordova plugin remove cordva-plugin-proximity
-npm unintall @red-mobile/cordva-plugin-proximity
+cordova plugin remove @red-mobile/cordva-plugin-proximity
 ```
 
 ## Supported Platforms
